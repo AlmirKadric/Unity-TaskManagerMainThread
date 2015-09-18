@@ -6,9 +6,9 @@ public class WaitingTask {
 	public IEnumerator c;
 	public bool autoStart;
 
-	public WaitingTask(IEnumerator _c, bool _autoStart) {
-		c = _c;
-		autoStart = _autoStart;
+	public WaitingTask(IEnumerator c, bool autoStart) {
+		this.c = c;
+		this.autoStart = autoStart;
 	}
 }
 
@@ -23,7 +23,7 @@ public class TaskManagerMainThread : MonoSingleton<TaskManagerMainThread> {
 	}
 
 	// Add task to queue to be executed on main thread.
-	// This is thread safe as it lock the queue list.
+	// This is thread safe as it gets a lock the queue list reference.
 	public static void Queue(IEnumerator c, bool autoStart = true) {
 		lock ((object)queuedTasks) {
 			queuedTasks.Add(new WaitingTask(c, autoStart));
@@ -31,7 +31,7 @@ public class TaskManagerMainThread : MonoSingleton<TaskManagerMainThread> {
 	}
 
 	// Instantiate queued tasks and clear queue list.
-	// This is thread safe as it lock the queue list.
+	// This is thread safe as it gets a lock to the queue list reference.
 	void Update () {
 		lock ((object)queuedTasks) {
 			foreach (WaitingTask task in queuedTasks) {
