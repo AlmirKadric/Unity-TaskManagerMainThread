@@ -17,6 +17,10 @@ public class TaskManagerMainThread : MonoSingleton<TaskManagerMainThread> {
 
 	// Create game object instance
 	public static void Instantiate() {
+		if (Instance != null) {
+			return;
+		}
+
 		GameObject gameObject = new GameObject();
 		gameObject.name = "TaskManagerMainThread";
 		gameObject.AddComponent<TaskManagerMainThread>();
