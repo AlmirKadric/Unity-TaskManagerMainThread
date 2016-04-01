@@ -15,17 +15,6 @@ public class WaitingTask {
 public class TaskManagerMainThread : MonoSingleton<TaskManagerMainThread> {
 	private static List<WaitingTask> queuedTasks = new List<WaitingTask>();
 
-	// Create game object instance
-	public static void Instantiate() {
-		if (Instance != null) {
-			return;
-		}
-
-		GameObject gameObject = new GameObject();
-		gameObject.name = "TaskManagerMainThread";
-		gameObject.AddComponent<TaskManagerMainThread>();
-	}
-
 	// Add task to queue to be executed on main thread.
 	// This is thread safe as it gets a lock the queue list reference.
 	public static void Queue(IEnumerator c, bool autoStart = true) {
