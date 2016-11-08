@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Wizcorp.MageSDK.Utils;
 
 public class WaitingTask {
 	public IEnumerator c;
